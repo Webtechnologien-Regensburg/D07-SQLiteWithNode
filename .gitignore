@@ -1,0 +1,5 @@
+# Ignore database files
+*.sqlite
+
+# Ignore local node modules
+node_modules
