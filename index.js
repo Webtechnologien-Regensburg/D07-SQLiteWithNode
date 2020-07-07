@@ -9,7 +9,7 @@
 
 // Import der SQLite-Bibliothek (die vorher mittels npm install sqlite3 herunter geladen wurde)
 // Damit die import-Syntax, die Sie bereits aus dem Browser kennen, hier funktioniert, muss die Quellcode-Datei mit der Endung "mjs" gespeichert
-// werden.
+// werden oder (wie hier) in der package.json-Datei das Attribut "type" auf den Wert "module" gesetzt werden.
 import sqlite3 from "sqlite3";
 
 // Sammlung vorbereiteter SQL-Queries für den programmatischen Zugriff auf die Datenbank
