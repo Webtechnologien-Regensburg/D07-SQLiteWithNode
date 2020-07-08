@@ -32,30 +32,34 @@ function createDatabase() {
 }
 
 function addPhraseToDatabase(phrase) {
-	// Erzeugen eines Statements zum Hinzufügen eines neuen DB-Eintrags. Die eigentliche Phrase wird als Parameter übergeben und
-	// statt den Platzhalte im gespeicherten Statement eingetragen.
+    // Erzeugen eines Statements zum Hinzufügen eines neuen DB-Eintrags. Die eigentliche Phrase wird als Parameter übergeben und
+    // statt den Platzhalte im gespeicherten Statement eingetragen.
     let query = ADD_PHRASE_QUERY.replace("$PLACEHOLDER", phrase);
     // Ausführen des SQL-Statements zum Hinzufügen eines Eintrags
     db.exec(query, onResult);
 }
 
 function printAllPhrasesInDatabase() {
-	// Ausführen des SQL-Statements zum Auslesen aller Phrasen
+    // Ausführen des SQL-Statements zum Auslesen aller Phrasen
     // Etwaige Fehler oder Ergebnisse werden von der SQLite-Bibliothek asynchron an eine Callback-Methode (hier: onResult) weitergeben
     db.all(GET_ALL_PHRASE_QUERY, onResult);
 }
 
 // Callback, der am Ende jeder Datenbank-Operation aufgerufen wird. Über die beiden Parameter teilt die SQLite-Bibliothek mit, ob beim
-// Ausführen der Statements Fehler aufgetreten sind (error) bzw. welche Inhalte im Result Set (rows) zu finden sind.
+// Ausführen der Statements Fehler aufgetreten sind (error) bzw. welche Inhalte im Result Set (rows) zu finden sind. Die SQLite-Bibliothek gibt 
+// die Ergebnisse in Form eines JavaScript-Arrays zurück. Jede Zeile wird durch ein einzelnes Objekt in diesem Array repräsentiert.
 function onResult(error, rows) {
-	// Liegt ein Fehler vor (error !== null) wird dieser ausgegeben. Andernfalls wird das Result Set ausgegeben
+    // Liegt ein Fehler vor (error !== null) wird dieser ausgegeben
     if (error !== null) {
         console.log(error);
-    } else {
+    }
+    // Liegt ein Result Set vor (rows !== undefined) wird dieses ausgegeben
+    if (rows !== undefined) {
         console.log(rows);
     }
 }
 
+// Hier beginnt die eigentliche Ausführung des Programms, dabei werden die vorbereiteten Methoden aufgerufen
 createDatabase();
 addPhraseToDatabase("Hello World!");
 addPhraseToDatabase("Hello Node.js!");
